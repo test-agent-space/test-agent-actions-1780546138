@@ -1,0 +1,25 @@
+name: Cross-Platform Test
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  test-runner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run Environment Check
+        run: |
+          echo "🤖 Hello from OpenHands via GitHub Actions!"
+          echo "Runner OS: ${{ runner.os }}"
+          echo "Runner Arch: ${{ runner.arch }}"
+          echo "BUILD_STATUS=SUCCESS" >> $GITHUB_ENV
+      - name: Create Result File
+        run: echo "Cross-platform build simulated successfully!" > build_result.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: build_result.txt
